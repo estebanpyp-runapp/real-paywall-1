@@ -14,13 +14,14 @@ module.exports = async (req, res) => {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${process.env.MERCADO_PAGO_ACCESS_TOKEN}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Idempotency-Key': session_id
       },
       body: JSON.stringify({
         transaction_amount: amount,
         description: `Pago evaluación: ${session_id}`,
         payer: { email },
-        payment_method_id: 'pix', // o 'credit_card'
+        payment_method_id: 'pix',
         external_reference: session_id
       })
     })
@@ -32,5 +33,4 @@ module.exports = async (req, res) => {
     return res.status(500).json({ error: 'Payment creation failed', message: err.message || err })
   }
 }
-
 
