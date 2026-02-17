@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
         transaction_amount: amount,
         description: `Pago evaluación: ${session_id}`,
         payer: { email },
-        payment_method_id: 'pix',
+        payment_method_id: 'visa',
         external_reference: session_id
       })
     })
